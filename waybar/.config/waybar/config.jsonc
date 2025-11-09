@@ -18,6 +18,7 @@
     "pulseaudio",
     "battery",
     "clock",
+    "try",
     "custom/power"
   ],
 
@@ -128,8 +129,8 @@
   },
   "custom/launcher": {
     "format": " ",
-    "on-click": "rofi -show drun",
-    "on-click-right": "killall rofi"
+    "on-click": "wofi --show drun",
+    "on-click-right": "killall wofi"
   },
   "custom/power": {
     "format": "<span color='#f7768e'>⏻</span>",

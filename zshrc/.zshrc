@@ -177,6 +177,7 @@ git add .
 git commit -m $1
 }
 
+
 export PATH="$PATH:$HOME/.local/bin"
 
 export VULKAN_SDK=~/vulkan/1.3.280.1/x86_64
@@ -200,68 +201,68 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-#__conda_setup="$('/home/lrvr/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-#if [ $? -eq 0 ]; then
-#    eval "$__conda_setup"
-#else
-#    if [ -f "/home/lrvr/anaconda3/etc/profile.d/conda.sh" ]; then
-#        . "/home/lrvr/anaconda3/etc/profile.d/conda.sh"
-#    else
-#        export PATH="/home/lrvr/anaconda3/bin:$PATH"
-#    fi
-#fi
-#unset __conda_setup
+__conda_setup="$('/home/lrvr/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/lrvr/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/lrvr/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/lrvr/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
 # <<< conda initialize <<<
 
 # --- Lazy Conda for zsh (no startup overhead) ---
+#
+## Hint your conda prefix; adjust if needed:
+#: ${CONDA_PREFIX_HINT:="$HOME/anaconda3"}   # or "$HOME/.miniconda3"
+#
+## Commands that should trigger loading Conda:
+#_lazy_conda_cmds=(conda activate deactivate python pip ipython jupyter)
+#
+## Internal: load conda only once
+#__lazy_conda_loaded=0
+#__lazy_conda_load() {
+#  # already loaded?
+#  [[ -n "$CONDA_EXE" || $__lazy_conda_loaded -eq 1 ]] && return
+#
+#  # prefer official hook
+#  if [[ -x "$CONDA_PREFIX_HINT/bin/conda" ]]; then
+#    local __conda_setup
+#    __conda_setup="$("$CONDA_PREFIX_HINT/bin/conda" 'shell.zsh' 'hook' 2>/dev/null)" || __conda_setup=""
+#    if [[ -n "$__conda_setup" ]]; then
+#      eval "$__conda_setup"
+#    elif [[ -r "$CONDA_PREFIX_HINT/etc/profile.d/conda.sh" ]]; then
+## . "$CONDA_PREFIX_HINT/etc/profile.d/conda.sh"  # commented out by conda initialize
+#      export PATH="$CONDA_PREFIX_HINT/bin:$PATH"
+#    else
+#      export PATH="$CONDA_PREFIX_HINT/bin:$PATH"
+#    fi
+#    unset __conda_setup
+#  fi
+#
+#  __lazy_conda_loaded=1
 
-# Hint your conda prefix; adjust if needed:
-: ${CONDA_PREFIX_HINT:="$HOME/anaconda3"}   # or "$HOME/.miniconda3"
-
-# Commands that should trigger loading Conda:
-_lazy_conda_cmds=(conda activate deactivate python pip ipython jupyter)
-
-# Internal: load conda only once
-__lazy_conda_loaded=0
-__lazy_conda_load() {
-  # already loaded?
-  [[ -n "$CONDA_EXE" || $__lazy_conda_loaded -eq 1 ]] && return
-
-  # prefer official hook
-  if [[ -x "$CONDA_PREFIX_HINT/bin/conda" ]]; then
-    local __conda_setup
-    __conda_setup="$("$CONDA_PREFIX_HINT/bin/conda" 'shell.zsh' 'hook' 2>/dev/null)" || __conda_setup=""
-    if [[ -n "$__conda_setup" ]]; then
-      eval "$__conda_setup"
-    elif [[ -r "$CONDA_PREFIX_HINT/etc/profile.d/conda.sh" ]]; then
-      . "$CONDA_PREFIX_HINT/etc/profile.d/conda.sh"
-      export PATH="$CONDA_PREFIX_HINT/bin:$PATH"
-    else
-      export PATH="$CONDA_PREFIX_HINT/bin:$PATH"
-    fi
-    unset __conda_setup
-  fi
-
-  __lazy_conda_loaded=1
-
-  # remove the wrappers now that conda is live
-  for _f in "${_lazy_conda_cmds[@]}"; do
-    unfunction "$_f" 2>/dev/null || true
-  done
-  unfunction __lazy_conda_load 2>/dev/null || true
-}
+#  # remove the wrappers now that conda is live
+#  for _f in "${_lazy_conda_cmds[@]}"; do
+#    unfunction "$_f" 2>/dev/null || true
+#  done
+#  unfunction __lazy_conda_load 2>/dev/null || true
+#}
 
 # Create tiny wrapper *functions* (better than aliases) for each trigger
-for _cmd in "${_lazy_conda_cmds[@]}"; do
-  eval "
-  $_cmd() {
-    __lazy_conda_load
-    command $_cmd \"\$@\"
-  }"
-done
+#for _cmd in "${_lazy_conda_cmds[@]}"; do
+#  eval "
+#  $_cmd() {
+#    __lazy_conda_load
+#    command $_cmd \"\$@\"
+#  }"
+#done
 
 # Optional convenience: 'cact env' == 'conda activate env'
-cact() { __lazy_conda_load; conda activate "$@"; }
+#cact() { __lazy_conda_load; conda activate "$@"; }
 
 
 
@@ -269,3 +270,5 @@ cact() { __lazy_conda_load; conda activate "$@"; }
 if [[ $- == *i* ]]; then
     fastfetch
 fi
+
+export PATH="$HOME/dotfiles/wofi-emoji:$PATH"
